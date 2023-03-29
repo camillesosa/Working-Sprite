@@ -1,0 +1,44 @@
+<html>
+<body>
+
+<canvas id="canvas" style=""></canvas>
+<script>
+
+  var init_size = true;
+  window.addEventListener('resize', resizeCanvas, false);
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    if(init_size){
+      init_size = false;
+      return;
+    }
+    for(var i=0; i < agents.length; i++){
+      agents[i].canvas_resize();
+    }
+  }
+  
+resizeCanvas();
+var context = canvas.getContext('2d');
+var img = new Image();
+img.src = "imgs/0.png"
+var lastAnimationTime = new Date().getTime();
+var timeDelta = 50;  //changes animation speed, higher = slower
+
+function draw(){
+  window.requestAnimationFrame(draw);
+  console.log("Drawing");
+  
+  if( timeDelta + lastAnimationTime > new Date().getTime()){
+    return;
+  }
+  
+  this.context.drawImage( img, this.curX, this.curY, this.imgWidth, this.imgHeight)
+  
+draw();
+  
+  
+</script>
+
+</body>
+</html>
