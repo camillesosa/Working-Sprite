@@ -18,24 +18,46 @@
     }
   }
   
-resizeCanvas();
-var context = canvas.getContext('2d');
-var img = new Image();
-img.src = "imgs/0.png"
-var lastAnimationTime = new Date().getTime();
-var timeDelta = 50;  //changes animation speed, higher = slower
-
-function draw(){
-  window.requestAnimationFrame(draw);
-  console.log("Drawing");
+  resizeCanvas();
+  var context = canvas.getContext('2d');
+  var img = new Image();
+  var x_dist;
+  var = y_dist;
+  img.src = "imgs/0.png"
+  var lastAnimationTime = new Date().getTime();
+  var timeDelta = 50;  //changes animation speed, higher = slower
+  var dataReady = false;
   
-  if( timeDelta + lastAnimationTime > new Date().getTime()){
-    return;
-  }
-  
-  this.context.drawImage( img, this.curX, this.curY, this.imgWidth, this.imgHeight)
-  
-draw();
+  function draw(){
+    window.requestAnimationFrame(draw);
+    console.log("Drawing");
+    
+    if (dataReady == false){
+      console.log("Loading...");
+      return;
+    }
+    
+    if( timeDelta + lastAnimationTime > new Date().getTime()){
+      return;
+    }
+    //x_dist = changing x
+      //if x_dist = 0, don't play moving animation
+    
+    
+    this.context.drawImage( img, this.curX, this.curY, this.imgWidth, this.imgHeight)
+    
+    //repainting canvas
+    x = x + x_dist;
+    bkImg = contextTmageData(x, y, 134, 142);
+    
+    //$.getJSON("spriteImgs", function(data){
+      //console.log("Loaded");
+      //alert("Loaded");
+      //dateReady = true;
+    //});
+    
+    
+  draw();
   
   
 </script>
