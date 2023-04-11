@@ -19,6 +19,26 @@
     "walk2" : "WestW2.jpeg",
     "walk3" : "WestW3.jpeg",
     "walk4" : "WestW4.jpeg"
+  }, "(NorthEast)" : {
+    "walk1" : "NorthEastW1.jpeg",
+    "walk2" : "NorthEastW2.jpeg",
+    "walk3" : "NorthEastW3.jpeg",
+    "walk4" : "NorthEastW4.jpeg"
+  }, "(NorthWest)" : {
+    "walk1" : "NorthWestW1.jpeg",
+    "walk2" : "NorthWestW2.jpeg",
+    "walk3" : "NorthWestW3.jpeg",
+    "walk4" : "NorthWestW4.jpeg"
+  }, "(SouthEast)" : {
+    "walk1" : "SouthEastW1.jpeg",
+    "walk2" : "SouthEastW2.jpeg",
+    "walk3" : "SouthEastW3.jpeg",
+    "walk4" : "SouthEastW4.jpeg"
+  }, "(SouthWest)" : {
+    "walk1" : "SouthWestW1.jpeg",
+    "walk2" : "SouthWestW2.jpeg",
+    "walk3" : "SouthWestW3.jpeg",
+    "walk4" : "SouthWestW4.jpeg"
   }, "(Idle)" : {
     "Idle1" : "Idle1.jpeg",
     "Idle2" : "Idle2.jpeg",
