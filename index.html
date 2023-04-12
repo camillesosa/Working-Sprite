@@ -20,13 +20,17 @@
   
   resizeCanvas();
   var context = canvas.getContext('2d');
-  var img = new Image();
-  var x_dist;
-  var = y_dist;
-  img.src = "imgs/0.png"
+  var img;
+  var bkImg = "imgs/backing.jpeg";
+  var x = 10;
+  var y = 10;
+  var x_dist = 0;
+  var y_dist = 0;
+  //img.src = "imgs/0.png"
   var lastAnimationTime = new Date().getTime();
   var timeDelta = 50;  //changes animation speed, higher = slower
   var dataReady = false;
+  var animationLoop = [];
   
   function draw(){
     window.requestAnimationFrame(draw);
@@ -49,6 +53,38 @@
     //repainting canvas
     x = x + x_dist;
     bkImg = contextTmageData(x, y, 134, 142);
+    
+    //idle
+    if (x_dist && y_dist == 0){
+      //play idle animation
+      //animationLoop = all in idle
+    }
+    
+    //movement
+    if (x_dist < x && y_dist < y){
+      //direction = NorthWest
+    }
+    if (x_dist < x && y_dist > y){
+      //direction = SouthWest
+    }
+    if (x_dist > x && y_dist < y){
+      //direction = NorthEast
+    }
+    if (x_dist > x && y_dist > y){
+      //direction = SouthEast
+    }
+    if (x_dist < x && y_dist == 0){
+      //direction = West
+    }
+    if (x_dist > x && y_dist == 0){
+      //direction = East
+    }
+    if (x_dist == 0 && y_dist < y){
+      //direction = North
+    }
+    if (x_dist == 0 && y_dist > y){
+      //direction  South
+    }
     
     //$.getJSON("spriteImgs", function(data){
       //console.log("Loaded");
