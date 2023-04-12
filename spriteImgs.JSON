@@ -1,48 +1,66 @@
 {
   "(North)" : {
-    "walk1" : "NorthW1.jpeg",
-    "walk2" : "NorthW2.jpeg",
-    "walk3" : "NorthW3.jpeg",
-    "walk4" : "NorthW4.jpeg"
+    "walk1" : "NorthW1.png",
+    "walk2" : "NorthW2.png",
+    "walk3" : "NorthW3.png",
+    "walk4" : "NorthW4.png"
   }, "(East)" : {
-    "walk1" : "EastW1.jpeg",
-    "walk2" : "EastW2.jpeg",
-    "walk3" : "EastW3.jpeg",
-    "walk4" : "EastW4.jpeg"
+    "walk1" : "EastW1.png",
+    "walk2" : "EastW2.png",
+    "walk3" : "EastW3.png",
+    "walk4" : "EastW4.png"
   }, "(South)" : {
-    "walk1" : "SouthW1.jpeg",
-    "walk2" : "SouthW2.jpeg",
-    "walk3" : "SouthW3.jpeg",
-    "walk4" : "SouthW4.jpeg"
+    "walk1" : "SouthW1.png",
+    "walk2" : "SouthW2.png",
+    "walk3" : "SouthW3.png",
+    "walk4" : "SouthW4.png"
   }, "(West)" : {
-    "walk1" : "WestW1.jpeg",
-    "walk2" : "WestW2.jpeg",
-    "walk3" : "WestW3.jpeg",
-    "walk4" : "WestW4.jpeg"
+    "walk1" : "WestW1.png",
+    "walk2" : "WestW2.png",
+    "walk3" : "WestW3.png",
+    "walk4" : "WestW4.png"
   }, "(NorthEast)" : {
-    "walk1" : "NorthEastW1.jpeg",
-    "walk2" : "NorthEastW2.jpeg",
-    "walk3" : "NorthEastW3.jpeg",
-    "walk4" : "NorthEastW4.jpeg"
+    "walk1" : "NeW1.png",
+    "walk2" : "NeW2.png",
+    "walk3" : "NeW3.png",
+    "walk4" : "NeW4.png"
   }, "(NorthWest)" : {
-    "walk1" : "NorthWestW1.jpeg",
-    "walk2" : "NorthWestW2.jpeg",
-    "walk3" : "NorthWestW3.jpeg",
-    "walk4" : "NorthWestW4.jpeg"
+    "walk1" : "NwW1.png",
+    "walk2" : "NwW2.png",
+    "walk3" : "NwW3.png",
+    "walk4" : "NwW4.png"
   }, "(SouthEast)" : {
-    "walk1" : "SouthEastW1.jpeg",
-    "walk2" : "SouthEastW2.jpeg",
-    "walk3" : "SouthEastW3.jpeg",
-    "walk4" : "SouthEastW4.jpeg"
+    "walk1" : "SeW1.png",
+    "walk2" : "SeW2.png",
+    "walk3" : "SeW3.png",
+    "walk4" : "SeW4.png"
   }, "(SouthWest)" : {
-    "walk1" : "SouthWestW1.jpeg",
-    "walk2" : "SouthWestW2.jpeg",
-    "walk3" : "SouthWestW3.jpeg",
-    "walk4" : "SouthWestW4.jpeg"
+    "walk1" : "SwW1.png",
+    "walk2" : "SwW2.png",
+    "walk3" : "SwW3.png",
+    "walk4" : "SwW4.png"
   }, "(Idle)" : {
-    "Idle1" : "Idle1.jpeg",
-    "Idle2" : "Idle2.jpeg",
-    "Idle3" : "Idle3.jpeg",
-    "Idle4" : "Idle4.jpeg"
+    "Idle0" : "Idle (0).png",
+    "Idle1" : "Idle (1).png",
+    "Idle2" : "Idle (2).png",
+    "Idle3" : "Idle (3).png",
+    "Idle4" : "Idle (4).png",
+    "Idle5" : "Idle (5).png",
+    "Idle6" : "Idle (6).png",
+    "Idle7" : "Idle (7).png",
+    "Idle8" : "Idle (8).png",
+    "Idle9" : "Idle (9).png",
+    "Idle10" : "Idle (10).png",
+    "Idle11" : "Idle (11).png",
+    "Idle12" : "Idle (12).png",
+    "Idle13" : "Idle (13).png",
+    "Idle14" : "Idle (14).png",
+    "Idle15" : "Idle (15).png",
+    "Idle16" : "Idle (16).png",
+    "Idle17" : "Idle (17).png",
+    "Idle18" : "Idle (18).png",
+    "Idle19" : "Idle (19).png",
+    "Idle20" : "Idle (20).png",
+    "Idle21" : "Idle (21).png"
   }
 }
