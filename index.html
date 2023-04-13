@@ -31,6 +31,7 @@
   var timeDelta = 50;  //changes animation speed, higher = slower
   var dataReady = false;
   var animationLoop = [];
+  var direction;
   
   function draw(){
     window.requestAnimationFrame(draw);
@@ -62,35 +63,43 @@
     
     //movement
     if (x_dist < x && y_dist < y){
-      //direction = NorthWest
+      direction = "(NorthWest)";
+      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     if (x_dist < x && y_dist > y){
-      //direction = SouthWest
+      direction = "(SouthWest)";
+      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     if (x_dist > x && y_dist < y){
-      //direction = NorthEast
+      direction = "(NorthEast)";
+      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     if (x_dist > x && y_dist > y){
-      //direction = SouthEast
+      direction = "(SouthEast)";
+      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     if (x_dist < x && y_dist == 0){
-      //direction = West
+      direction = "(West)";
+      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     if (x_dist > x && y_dist == 0){
-      //direction = East
+      direction = "(East)";
+      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     if (x_dist == 0 && y_dist < y){
-      //direction = North
+      direction = "(North)";
+      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     if (x_dist == 0 && y_dist > y){
-      //direction  South
+      direction = "(South)";
+      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     
-    //$.getJSON("spriteImgs", function(data){
-      //console.log("Loaded");
-      //alert("Loaded");
-      //dateReady = true;
-    //});
+    $.getJSON("spriteImgs", function(data){
+      console.log("Loaded");
+      alert("Loaded");
+      dataReady = true;
+    });
     
     
   draw();
