@@ -27,7 +27,7 @@
   resizeCanvas();
   var context = canvas.getContext('2d');
   var img;
-  var bkImg = "imgs/backing.jpeg";
+  var bkImg = null;
   //current position
   var x = 10;
   var y = 10;
@@ -41,8 +41,21 @@
   var animationLoop = [];
   var loopI = 0;
   var direction;
+  $.getJSON("spriteImgs", function(data){
+      console.log("Loaded");
+      alert("Loaded");
+      dataReady = true;
+  });
   
   function draw(){
+  
+    //leftclick equals move
+    $(this).on("click", function () {
+      //get coordinates of mouse
+      x_dest = event.pageX;
+      y_dest = event.pageY;
+    }
+  
     window.requestAnimationFrame(draw);
     console.log("Drawing");
     
@@ -54,71 +67,70 @@
     if( timeDelta + lastAnimationTime > new Date().getTime()){
       return;
     }
-    //x_dist = changing x
-      //if x_dist = 0, don't play moving animation
     
+    lastAnimationTime = new Date().getTime();
+    if (bkImg != null){
+      context.putImageData(bkImg, x, y);
+    }
     
-    this.context.drawImage( img, this.curX, this.curY, this.imgWidth, this.imgHeight)
+    //this.context.drawImage( img, this.curX, this.curY, this.imgWidth, this.imgHeight)
     
     //repainting canvas
+    //maybe instead of using temp variables we should set x = x_dest after directions are set
+    tempx = x;
+    tempy = y;
     x = x_dest;
     bkImg = contextTmageData(x, y, 134, 142);
     
     //idle
-    if (x_dest == x && y_dest == y){
+    if (x_dest == tempx && y_dest == tempy){
       //play idle animation
       //animationLoop = all in idle
     }
     
     //movement
-    if (x_dest < x && y_dest < y){
+    if (x_dest < tempx && y_dest < tempy){
       direction = "(NorthWest)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dest < x && y_dest > y){
+    if (x_dest < tempx && y_dest > tempy){
       direction = "(SouthWest)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dest > x && y_dest < y){
+    if (x_dest > tempx && y_dest < tempy){
       direction = "(NorthEast)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dest > x && y_dest > y){
+    if (x_dest > tempx && y_dest > tempy){
       direction = "(SouthEast)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dest < x && y_dest == y){
+    if (x_dest < tempx && y_dest == tempy){
       direction = "(West)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dest > x && y_dest == y){
+    if (x_dest > tempx && y_dest == tempy){
       direction = "(East)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dest == x && y_dest < y){
+    if (x_dest == tempx && y_dest < tempy){
       direction = "(North)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dest == x && y_dest > y){
+    if (x_dest == tempx && y_dest > tempy){
       direction = "(South)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
     
-    $.getJSON("spriteImgs", function(data){
-      console.log("Loaded");
-      alert("Loaded");
-      dataReady = true;
-    });
-    
-    //leftclick equals move
-    $(this).on("click", function () {
-      //get coordinates of mouse
-      x_dest = event.pageX;
-      y_dest = event.pageY;
-      }
+    loopI++;
+    if(loopI > 3){
+      loopI = 0;
+    }
+    img = animationLoop[loopI];
+    context.drawImage(img, x, y, 134, 142);
+  }
                
   draw();
-  
   
 </script>
 
