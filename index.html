@@ -1,4 +1,10 @@
 <html>
+  
+<head>
+        <script 
+                src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js">
+        </script>
+</head>
 <body>
 
 <canvas id="canvas" style=""></canvas>
@@ -22,10 +28,12 @@
   var context = canvas.getContext('2d');
   var img;
   var bkImg = "imgs/backing.jpeg";
+  //current position
   var x = 10;
   var y = 10;
-  var x_dist = 0;
-  var y_dist = 0;
+  //next position
+  var x_dest = 0;
+  var y_dest = 0;
   //img.src = "imgs/0.png"
   var lastAnimationTime = new Date().getTime();
   var timeDelta = 50;  //changes animation speed, higher = slower
@@ -53,45 +61,45 @@
     this.context.drawImage( img, this.curX, this.curY, this.imgWidth, this.imgHeight)
     
     //repainting canvas
-    x = x + x_dist;
+    x = x_dest;
     bkImg = contextTmageData(x, y, 134, 142);
     
     //idle
-    if (x_dist && y_dist == 0){
+    if (x_dest == x && y_dest == y){
       //play idle animation
       //animationLoop = all in idle
     }
     
     //movement
-    if (x_dist < x && y_dist < y){
+    if (x_dest < x && y_dest < y){
       direction = "(NorthWest)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dist < x && y_dist > y){
+    if (x_dest < x && y_dest > y){
       direction = "(SouthWest)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dist > x && y_dist < y){
+    if (x_dest > x && y_dest < y){
       direction = "(NorthEast)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dist > x && y_dist > y){
+    if (x_dest > x && y_dest > y){
       direction = "(SouthEast)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dist < x && y_dist == 0){
+    if (x_dest < x && y_dest == y){
       direction = "(West)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dist > x && y_dist == 0){
+    if (x_dest > x && y_dest == y){
       direction = "(East)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dist == 0 && y_dist < y){
+    if (x_dest == x && y_dest < y){
       direction = "(North)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
-    if (x_dist == 0 && y_dist > y){
+    if (x_dest == x && y_dest > y){
       direction = "(South)";
       animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
     }
@@ -102,7 +110,13 @@
       dataReady = true;
     });
     
-    
+    //leftclick equals move
+    $(this).on("click", function () {
+      //get coordinates of mouse
+      x_dest = event.pageX;
+      y_dest = event.pageY;
+      }
+               
   draw();
   
   
