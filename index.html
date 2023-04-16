@@ -1,138 +1,179 @@
 <html>
-  
+
 <head>
-        <script 
-                src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js">
-        </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js">
+  </script>
 </head>
+
 <body>
+  <canvas id="canvas" style=""></canvas>
+  <script>
 
-<canvas id="canvas" style=""></canvas>
-<script>
+    var init_size = true;
+    window.addEventListener('resize', resizeCanvas, false);
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (init_size) {
+        init_size = false;
+        return;
+      }
+      for (var i = 0; i < agents.length; i++) {
+        agents[i].canvas_resize();
+      }
+    }
 
-  var init_size = true;
-  window.addEventListener('resize', resizeCanvas, false);
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    if(init_size){
-      init_size = false;
-      return;
-    }
-    for(var i=0; i < agents.length; i++){
-      agents[i].canvas_resize();
-    }
-  }
-  
-  resizeCanvas();
-  var context = canvas.getContext('2d');
-  var img;
-  var bkImg = null;
-  //current position
-  var x = 10;
-  var y = 10;
-  //next position
-  var x_dest = 0;
-  var y_dest = 0;
-  //img.src = "imgs/0.png"
-  var lastAnimationTime = new Date().getTime();
-  var timeDelta = 50;  //changes animation speed, higher = slower
-  var dataReady = false;
-  var animationLoop = [];
-  var loopI = 0;
-  var direction;
-  $.getJSON("spriteImgs", function(data){
-      console.log("Loaded");
-      alert("Loaded");
-      dataReady = true;
-  });
-  
-  function draw(){
-  
-    //leftclick equals move
-    $(this).on("click", function () {
-      //get coordinates of mouse
-      x_dest = event.pageX;
-      y_dest = event.pageY;
-    }
-  
-    window.requestAnimationFrame(draw);
-    console.log("Drawing");
-    
-    if (dataReady == false){
-      console.log("Loading...");
-      return;
-    }
-    
-    if( timeDelta + lastAnimationTime > new Date().getTime()){
-      return;
-    }
-    
-    lastAnimationTime = new Date().getTime();
-    if (bkImg != null){
-      context.putImageData(bkImg, x, y);
-    }
-    
-    //this.context.drawImage( img, this.curX, this.curY, this.imgWidth, this.imgHeight)
-    
-    //repainting canvas
-    //maybe instead of using temp variables we should set x = x_dest after directions are set
-    tempx = x;
-    tempy = y;
-    x = x_dest;
-    bkImg = contextTmageData(x, y, 134, 142);
-    
-    //idle
-    if (x_dest == tempx && y_dest == tempy){
-      //play idle animation
-      //animationLoop = all in idle
-    }
-    
-    //movement
-    if (x_dest < tempx && y_dest < tempy){
-      direction = "(NorthWest)";
-      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
-    }
-    if (x_dest < tempx && y_dest > tempy){
-      direction = "(SouthWest)";
-      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
-    }
-    if (x_dest > tempx && y_dest < tempy){
-      direction = "(NorthEast)";
-      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
-    }
-    if (x_dest > tempx && y_dest > tempy){
-      direction = "(SouthEast)";
-      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
-    }
-    if (x_dest < tempx && y_dest == tempy){
-      direction = "(West)";
-      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
-    }
-    if (x_dest > tempx && y_dest == tempy){
-      direction = "(East)";
-      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
-    }
-    if (x_dest == tempx && y_dest < tempy){
-      direction = "(North)";
-      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
-    }
-    if (x_dest == tempx && y_dest > tempy){
-      direction = "(South)";
-      animationLoop = ["url('" + spriteImgs[direction]['walk1'] + "')", "url('" + spriteImgs[direction]['walk2'] + "')", "url('" + spriteImgs[direction]['walk3'] + "')", "url('" + spriteImgs[direction]['walk4'] + "')"];
-    }
-    
-    loopI++;
-    if(loopI > 3){
-      loopI = 0;
-    }
-    img = animationLoop[loopI];
-    context.drawImage(img, x, y, 134, 142);
-  }
-               
-  draw();
-  
-</script>
+    // resizeCanvas();
 
+    var context = canvas.getContext('2d');
+    var img;
+    var bkImg = null;
+    //current position
+    var x = 10;
+    var y = 10;
+    //next position
+    var x_dest = 0;
+    var y_dest = 0;
+    // img.src = "imgs/0.png"
+    var lastAnimationTime = new Date().getTime();
+    var timeDelta = 50;  //changes animation speed, higher = slower
+    var dataReady = false;
+    var animationLoop = [];
+    var loopI = 0;
+    var direction;
+
+    function draw() {
+
+
+      //leftclick equals move
+      $(document).on("mousedown", function () {
+        //get coordinates of mouse
+        x_dest = event.pageX;
+        y_dest = event.pageY;
+        console.log(x_dest);
+        console.log(y_dest);
+      });
+
+      window.requestAnimationFrame(draw);
+      console.log("Drawing");
+
+      if (dataReady == false) {
+        console.log("Loading..");
+        return;
+      }
+
+      // if (timeDelta + lastAnimationTime > new Date().getTime()) {
+      //   console.log(timeDelta + lastAnimationTime);
+      //   console.log(new Date().getTime());
+      //   console.log("timedelta return");
+      //   return;
+      // }
+
+      lastAnimationTime = new Date().getTime();
+      if (bkImg != null) {
+        console.log("bkimg block");
+        context.putImageData(bkImg, x, y);
+      }
+
+
+      var img = new Image();
+      img.src = "imgs/Idle (0).png";
+
+      console.log("draw image test b4 hit");
+      this.context.drawImage(img, this.curX, this.curY, this.imgWidth, this.imgHeight)
+
+      //repainting canvas
+      //maybe instead of using temp variables we should set x = x_dest after directions are set
+      tempx = x;
+      tempy = y;
+      xdiff = x_dest - tempx
+      ydiff = y_dest - tempy
+      //xdiff
+
+      bkImg = context.getImageData(x, y, 134, 142);
+
+      //idle
+      if (x_dest == tempx && y_dest == tempy) {
+        // play idle animation
+        // animationLoop = all in idle
+      }
+
+      //movement
+      console.log("movement if blocks hit");
+      if (x_dest < tempx && y_dest < tempy) {
+        direction = "(NorthWest)";
+        animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
+      }
+      if (x_dest < tempx && y_dest > tempy) {
+        direction = "(SouthWest)";
+        animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
+      }
+      if (x_dest > tempx && y_dest < tempy) {
+        direction = "(NorthEast)";
+        animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
+      }
+      if (x_dest > tempx && y_dest > tempy) {
+        direction = "(SouthEast)";
+        animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
+      }
+      if (x_dest < tempx && y_dest == tempy) {
+        direction = "(West)";
+        animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
+      }
+      if (x_dest > tempx && y_dest == tempy) {
+        direction = "(East)";
+        animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
+      }
+      if (x_dest == tempx && y_dest < tempy) {
+        direction = "(North)";
+        animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
+      }
+      if (x_dest == tempx && y_dest > tempy) {
+        direction = "(South)";
+        animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
+        animation_x = xdiff;
+        animation_y = ydiff + tempy;
+      }
+
+      // loopI++;
+      // if (loopI > 3) {
+      //   loopI = 0;
+      // }
+      // console.log("img loop fire");
+      console.log(spriteImgs);
+      console.log(animationLoop);
+
+      console.log("animationLoop hit");
+      img.src = animationLoop[loopI];
+      console.log(animationLoop[loopI]
+      );
+
+
+      x = x_dest;
+      y = y_dest;
+      context.drawImage(img, x, y, 134, 142);
+
+    }
+
+    $(document).ready(function () {
+
+      resizeCanvas();
+      $.getJSON("spriteImgs.JSON", function (data) {
+        console.log("Loaded");
+        alert("Loaded");
+        dataReady = true;
+        spriteImgs = data;
+        console.log(spriteImgs);
+      });
+
+
+
+      draw();
+
+
+    });
+
+  </script>
 </body>
+
 </html>
