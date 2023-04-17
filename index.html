@@ -41,6 +41,7 @@
     var animationLoop = [];
     var loopI = 0;
     var direction;
+    var status = "idle";
 
     function draw() {
 
@@ -63,6 +64,7 @@
 
       //leftclick equals move
       $(document).on("mousedown", function () {
+        status = "moving";
         //get coordinates of mouse
         x_dest = event.pageX;
         y_dest = event.pageY;
@@ -170,6 +172,7 @@
                 break;
       }
     context.drawImage(img, x, y, 134, 142);
+    status = "idle";
     }
 
     $(document).ready(function () {
