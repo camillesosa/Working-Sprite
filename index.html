@@ -36,7 +36,7 @@
     var y_dest = 0;
     // img.src = "imgs/0.png"
     var lastAnimationTime = new Date().getTime();
-    var timeDelta = 50;  //changes animation speed, higher = slower
+    var timeDelta = 35;  //changes animation speed, higher = slower
     var dataReady = false;
     var animationLoop = [];
     var loopI = 0;
@@ -44,6 +44,22 @@
 
     function draw() {
 
+      window.requestAnimationFrame(draw);
+      //console.log("Drawing");
+
+      if (dataReady == false) {
+        //console.log("Loading..");
+        return;
+      }
+
+      if (timeDelta + lastAnimationTime > new Date().getTime()) {
+         //console.log("timedelta return");
+         return;
+      }
+      lastAnimationTime = new Date().getTime();
+      if (bkImg != null) {
+        context.putImageData(bkImg, x, y);
+      }
 
       //leftclick equals move
       $(document).on("mousedown", function () {
@@ -54,42 +70,20 @@
         console.log(y_dest);
       });
 
-      window.requestAnimationFrame(draw);
-      console.log("Drawing");
-
-      if (dataReady == false) {
-        console.log("Loading..");
-        return;
-      }
-
-      // if (timeDelta + lastAnimationTime > new Date().getTime()) {
-      //   console.log(timeDelta + lastAnimationTime);
-      //   console.log(new Date().getTime());
-      //   console.log("timedelta return");
-      //   return;
-      // }
-
-      lastAnimationTime = new Date().getTime();
-      if (bkImg != null) {
-        console.log("bkimg block");
-        context.putImageData(bkImg, x, y);
-      }
 
 
       var img = new Image();
       img.src = "imgs/Idle (0).png";
 
-      console.log("draw image test b4 hit");
-      this.context.drawImage(img, this.curX, this.curY, this.imgWidth, this.imgHeight)
+      //console.log("draw image test b4 hit");
+      //this.context.drawImage(img, this.curX, this.curY, this.imgWidth, this.imgHeight)
 
-      //repainting canvas
-      //maybe instead of using temp variables we should set x = x_dest after directions are set
       tempx = x;
       tempy = y;
-      xdiff = x_dest - tempx
-      ydiff = y_dest - tempy
-      //xdiff
+      xdiff = Math.abs(tempx - x_dest);
+      ydiff = Math.abs(tempy - y_dest);
 
+      //repainting canvas
       bkImg = context.getImageData(x, y, 134, 142);
 
       //idle
@@ -99,7 +93,6 @@
       }
 
       //movement
-      console.log("movement if blocks hit");
       if (x_dest < tempx && y_dest < tempy) {
         direction = "(NorthWest)";
         animationLoop = [spriteImgs[direction]['walk1'], spriteImgs[direction]['walk2'], spriteImgs[direction]['walk3'], spriteImgs[direction]['walk4']];
@@ -139,20 +132,42 @@
       // if (loopI > 3) {
       //   loopI = 0;
       // }
-      // console.log("img loop fire");
-      console.log(spriteImgs);
-      console.log(animationLoop);
 
-      console.log("animationLoop hit");
       img.src = animationLoop[loopI];
-      console.log(animationLoop[loopI]
-      );
+      //console.log(animationLoop[loopI]);
 
-
-      x = x_dest;
-      y = y_dest;
-      context.drawImage(img, x, y, 134, 142);
-
+      x = tempx;
+      y = tempy;
+      while(xdiff + ydiff > 0){
+        loopI++;
+        if (loopI > 3) {
+          loopI = 0;
+        }
+        if(xdiff != 0 && tempx > x_dest){
+          x--;
+          xdiff--;
+        }
+        if(xdiff !=0 && tempx < x_dest){
+          x++;
+          xdiff--;
+        }
+        if(ydiff != 0 && tempy > y_dest){
+          y--;
+          ydiff--;
+        }
+        if(ydiff != 0 && tempy < y_dest){
+          y++;
+          ydiff--;
+        }
+        //console.log("distance is now");
+        //console.log(xdiff);
+        //console.log(ydiff);
+        img.src = animationLoop[loopI];
+        console.log("hit");
+                context.drawImage(img, x, y, 134, 142);
+                break;
+      }
+    context.drawImage(img, x, y, 134, 142);
     }
 
     $(document).ready(function () {
