@@ -89,6 +89,7 @@
       bkImg = context.getImageData(x, y, 134, 142);
 
       //idle
+      //for idle I need to set loopi to 21, also I may need to move this but it maybe be fine here
       if (x_dest == tempx && y_dest == tempy) {
         // play idle animation
         animationLoop = [spriteImgs['(Idle)']['Idle0'], spriteImgs['(Idle)']['Idle1'], spriteImgs['(Idle)']['Idle2'], spriteImgs['(Idle)']['Idle3'], spriteImgs['(Idle)']['Idle4'], spriteImgs['(Idle)']['Idle5'], spriteImgs['(Idle)']['Idle6'], spriteImgs['(Idle)']['Idle7'], spriteImgs['(Idle)']['Idle8'], spriteImgs['(Idle)']['Idle9'], spriteImgs['(Idle)']['Idle10'], spriteImgs['(Idle)']['Idle11'], spriteImgs['(Idle)']['Idle12'], spriteImgs['(Idle)']['Idle13'], spriteImgs['(Idle)']['Idle14'], spriteImgs['(Idle)']['Idle15'], spriteImgs['(Idle)']['Idle16'], spriteImgs['(Idle)']['Idle17'], spriteImgs['(Idle)']['Idle18'], spriteImgs['(Idle)']['Idle19'], spriteImgs['(Idle)']['Idle20'], spriteImgs['(Idle)']['Idle21']]
@@ -144,6 +145,10 @@
       y = tempy;
       while(xdiff + ydiff > 0){
         loopI++;
+        //if (status == "moving" && loopI > 3
+          //loopI = 0;
+        //if (status == "idle" && loopI > 20
+          //loopI = 0
         if (loopI > 3) {
           loopI = 0;
         }
