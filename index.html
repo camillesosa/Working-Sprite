@@ -37,7 +37,7 @@
     //next position
     var x_dest = 0;
     var y_dest = 0;
-    // img.src = "imgs/0.png"
+    //img.src = "imgs/0.png"
     var lastAnimationTime = new Date().getTime();
     var timeDelta = 35;  //changes animation speed, higher = slower
     var dataReady = false;
@@ -45,6 +45,21 @@
     var loopI = 0;
     var direction;
     var status = "idle";
+    var timer = 0;
+
+    function Idle(animationLoop) {
+            //idle animation
+            //for setInterval, but it doesn't like me using img.src
+            loopI++;
+            if (loopI > 20) {
+              loopI = 0;
+            }
+            //maybe a timer for how often it does it
+            img.src = animationLoop[loopI];
+            //console.log("idle hit");
+                  context.drawImage(img, x, y, 134, 142);
+                  //break;
+    }
 
     function draw() {
       //console.log("border size:");
@@ -52,6 +67,7 @@
       //console.log(canvas.height);
       window.requestAnimationFrame(draw);
       //console.log("Drawing");
+      timer++;
 
       if (dataReady == false) {
         //console.log("Loading..");
@@ -189,18 +205,21 @@
                 context.drawImage(img, x, y, 134, 142);
                 break;
       }
+      if (xdiff + ydiff <= 0){
+        status = "idle";
+      }
       while (status == "idle"){
-        //idle
-        //animation
-        loopI++;
-        if (loopI > 20) {
-          loopI = 0;
-        }
-        //maybe a timer for how often it does it
-        img.src = animationLoop[loopI];
-        //console.log("idle hit");
-                context.drawImage(img, x, y, 134, 142);
-                break;
+          //setInterval(Idle(animationLoop), 30000);
+          //not working :( technically I have an idle, it just plays constantly lol
+            //idle animation
+            loopI++;
+            if (loopI > 20) {
+              loopI = 0;
+            }
+            img.src = animationLoop[loopI];
+            //console.log("idle hit");
+                  context.drawImage(img, x, y, 134, 142);
+                  break;
       }
     context.drawImage(img, x, y, 134, 142);
     }
